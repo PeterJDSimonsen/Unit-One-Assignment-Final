@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class enemyMoveUp : MonoBehaviour
 {
-    int timer;
     Rigidbody2D rb;
+    int speed;
     void Start()
     {
-        timer = 0;
         rb = GetComponent<Rigidbody2D>();
+        speed = -10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer++;
-        if (timer == 600)
+        rb.velocity = new Vector2(0, speed);
+    }
+    void OnTriggerEnter2D (Collider2D col)
+    {
+        if (col.gameObject.tag == "Wall")
         {
-            timer = 0;
-            rb.velocity = new Vector2(0, 10);
-            Debug.Log(timer);
-        }
-        if (timer == 300)
-        {
-            rb.velocity = new Vector2(0, -10);
+            speed = -speed;
         }
     }
 }
